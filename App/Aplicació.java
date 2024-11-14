@@ -156,6 +156,7 @@ public class Aplicació {
         System.out.println("3. Binari");
         System.out.println("4. accés aleatori");
         System.out.println("5. serialitzat");
+        System.out.println("6. XML");
 
         String tipusFich = reader.readLine();
 
@@ -191,6 +192,11 @@ public class Aplicació {
                 fileName = fileName.concat(extensio);
                 uw1.EscripturaSerial(encarrecs, fileName);
                 break;
+
+            case "6":
+                extensio=".xml";
+                fileName=fileName.concat(extensio);
+                uw.EscripturaDOM(encarrecs,fileName);    
         
             default:
                 break;

@@ -1,7 +1,6 @@
 package App;
 
 import java.util.ArrayList;
-
 import Model.Article;
 import Model.Encarrec;
 

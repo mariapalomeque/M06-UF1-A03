@@ -9,6 +9,11 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+import org.w3c.dom.*;
+
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import Model.Article;
 import Model.Encarrec;
@@ -203,5 +208,47 @@ public class UtilWriteFitxer {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    public void EscripturaDOM(ArrayList<Encarrec> encarrecs, String fileName){
+
+
+ DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+
+        ArrayList<Encarrec>encarrec=new ArrayList<>();
+
+        
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            DOMImplementation implementation = builder.getDOMImplementation();
+            Document document = implementation.createDocument (null,"encarrecs", null);
+            document.setXmlVersion("1.0");
+       
+            
+            for(Encarrec encarrec2: encarrecs){
+                Element arrel = document.createElement("encarrec");
+                arrel.setAttribute("id",Integer.toString(encarrec2.getId()));
+                document.getDocumentElement().appendChild(arrel);
+
+                CrearElement("nomCli", encarrec2.getNomCli(), arrel, document);
+                CrearElement("telCli", encarrec2.getTelCli(), arrel, document);
+                CrearElement("dataEncarrec",encarrec2.getDataEncarrec(), arrel, document);
+                CrearElement("articles",Double.toString(encarrec2.getHeight()), arrel, document);
+                CrearElement("preu total", Float.toString(encarrec2.getPreuTotal()), arrel, document);
+
+
+                
+            }
+
+        }catch(Exception e){
+            System.err.println("error: "+e);
+
+        }
+        
+    }
+    public static void CrearElement (String dadaEmpleat, String valor, Element arrel, Document document) {
+        Element elem = document.createElement (dadaEmpleat);
+        Text text = document.createTextNode(valor);
+        arrel.appendChild (elem);
+        elem.appendChild (text);
     }
 }
