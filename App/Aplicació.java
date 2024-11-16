@@ -196,7 +196,7 @@ public class Aplicació {
             case "6":
                 extensio=".xml";
                 fileName=fileName.concat(extensio);
-                uw.EscripturaDOM(encarrecs,fileName);    
+                uw1.EscripturaDOM(encarrecs,fileName);    
         
             default:
                 break;
@@ -213,6 +213,7 @@ public class Aplicació {
         System.out.println("2. Fitxer binari .dat");
         System.out.println("3. Fitxer acces aleatori .dat");
         System.out.println("4. Serialitzat .dat");
+        System.out.println("5.Fitxer dom.xml");
 
         String opcio = reader.readLine();
         
@@ -238,6 +239,8 @@ public class Aplicació {
             case "4":
                 ur1.LecturaSerial(folder, fileName);
                 break;
+            case "4":
+                ur1.
             default:
                 break;
         }

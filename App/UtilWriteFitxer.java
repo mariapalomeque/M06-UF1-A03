@@ -212,7 +212,7 @@ public class UtilWriteFitxer {
     public void EscripturaDOM(ArrayList<Encarrec> encarrecs, String fileName){
 
 
- DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 
         ArrayList<Encarrec>encarrec=new ArrayList<>();
 
