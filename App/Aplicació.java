@@ -239,8 +239,8 @@ public class Aplicació {
             case "4":
                 ur1.LecturaSerial(folder, fileName);
                 break;
-            case "4":
-                ur1.
+            case "5":
+                ur1.LecturaDOM(folder, fileName);//aqui se deberia crear una clase en el documento utilReadFitxer o algo asi llamado LecturaDOM
             default:
                 break;
         }
