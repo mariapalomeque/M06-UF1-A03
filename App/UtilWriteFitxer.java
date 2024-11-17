@@ -3,6 +3,7 @@ package App;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -14,6 +15,11 @@ import org.w3c.dom.*;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
 
 import Model.Article;
 import Model.Encarrec;
@@ -209,46 +215,58 @@ public class UtilWriteFitxer {
             e.printStackTrace();
         }
     }
-    public void EscripturaDOM(ArrayList<Encarrec> encarrecs, String fileName){
-
-
-        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-
-        ArrayList<Encarrec>encarrec=new ArrayList<>();
-
+    public void EscripturaDOM(ArrayList<Encarrec> encarrecs) {
+    DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+    try {
+        DocumentBuilder builder = factory.newDocumentBuilder();
+        DOMImplementation implementation = builder.getDOMImplementation();
+        Document document = implementation.createDocument(null, "encarrecs", null);
+        document.setXmlVersion("1.0");
         
-        try {
-            DocumentBuilder builder = factory.newDocumentBuilder();
-            DOMImplementation implementation = builder.getDOMImplementation();
-            Document document = implementation.createDocument (null,"encarrecs", null);
-            document.setXmlVersion("1.0");
-       
-            
-            for(Encarrec encarrec2: encarrecs){
-                Element arrel = document.createElement("encarrec");
-                arrel.setAttribute("id",Integer.toString(encarrec2.getId()));
-                document.getDocumentElement().appendChild(arrel);
+        for (Encarrec encarrec : encarrecs) {
+            Element encElement = document.createElement("encarrec");
+            encElement.setAttribute("id", Integer.toString(encarrec.getId()));
+            document.getDocumentElement().appendChild(encElement);
 
-                CrearElement("nomCli", encarrec2.getNomCli(), arrel, document);
-                CrearElement("telCli", encarrec2.getTelCli(), arrel, document);
-                CrearElement("dataEncarrec",encarrec2.getDataEncarrec(), arrel, document);
-                CrearElement("articles",Double.toString(encarrec2.getHeight()), arrel, document);
-                CrearElement("preu total", Float.toString(encarrec2.getPreuTotal()), arrel, document);
+            CrearElement("nomCli", encarrec.getNomCli(), encElement, document);
+            CrearElement("telCli", encarrec.getTelCli(), encElement, document);
+            CrearElement("dataEncarrec", encarrec.getDataEncarrec(), encElement, document);
+            CrearElement("preuTotal", Float.toString(encarrec.getPreuTotal()), encElement, document);
 
+            Element articlesElement = document.createElement("articles");
+            encElement.appendChild(articlesElement);
 
-                
+            for (Article article : encarrec.getArticles()) {
+                Element articleElement = document.createElement("article");
+                articlesElement.appendChild(articleElement);
+
+                CrearElement("nomArticle", article.getNomArticle(), articleElement, document);
+                CrearElement("quantitat", Float.toString(article.getnombreUnitats()), articleElement, document);
+                CrearElement("tipusUnitat", article.gettipusUnitat(), articleElement, document);
+                CrearElement("preuUnitat", Float.toString(article.getPreuUnitat()), articleElement, document);
             }
-
-        }catch(Exception e){
-            System.err.println("error: "+e);
-
         }
-        
+
+        String fileName = "encarrecs_" + System.currentTimeMillis() + ".xml";
+        TransformerFactory transformerFactory = TransformerFactory.newInstance();
+        Transformer transformer = transformerFactory.newTransformer();
+        transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+        DOMSource source = new DOMSource(document);
+        StreamResult result = new StreamResult(new File(fileName));
+        transformer.transform(source, result);
+
+        System.out.println("Arxiu XML generat: " + fileName);
+
+    } catch (Exception e) {
+        e.printStackTrace();
     }
-    public static void CrearElement (String dadaEmpleat, String valor, Element arrel, Document document) {
-        Element elem = document.createElement (dadaEmpleat);
-        Text text = document.createTextNode(valor);
-        arrel.appendChild (elem);
-        elem.appendChild (text);
-    }
+}
+
+public static void CrearElement(String etiqueta, String valor, Element parent, Document document) {
+    Element elem = document.createElement(etiqueta);
+    Text text = document.createTextNode(valor);
+    parent.appendChild(elem);
+    elem.appendChild(text);
+}
+
 }

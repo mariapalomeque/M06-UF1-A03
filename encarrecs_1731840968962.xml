@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<encarrecs>
+    <encarrec id="1">
+        <nomCli>pau</nomCli>
+        <telCli>2324536356</telCli>
+        <dataEncarrec>22</dataEncarrec>
+        <preuTotal>16.0</preuTotal>
+        <articles>
+            <article>
+                <nomArticle>poma</nomArticle>
+                <quantitat>2.0</quantitat>
+                <tipusUnitat>u</tipusUnitat>
+                <preuUnitat>8.0</preuUnitat>
+            </article>
+        </articles>
+    </encarrec>
+</encarrecs>

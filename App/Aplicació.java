@@ -196,7 +196,7 @@ public class Aplicació {
             case "6":
                 extensio=".xml";
                 fileName=fileName.concat(extensio);
-                uw1.EscripturaDOM(encarrecs,fileName);    
+                uw1.EscripturaDOM(encarrecs);    
         
             default:
                 break;
@@ -240,7 +240,7 @@ public class Aplicació {
                 ur1.LecturaSerial(folder, fileName);
                 break;
             case "5":
-                ur1.LecturaDOM(folder, fileName);//aqui se deberia crear una clase en el documento utilReadFitxer o algo asi llamado LecturaDOM
+                ur1.LecturaDOM(folder, fileName);
             default:
                 break;
         }

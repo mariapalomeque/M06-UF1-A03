@@ -3,6 +3,7 @@ package App;
 import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.EOFException;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -10,6 +11,13 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.RandomAccessFile;
 import java.util.ArrayList;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 
 import Model.Article;
 import Model.Encarrec;
@@ -245,6 +253,25 @@ public class UtilReadFitxer {
 
         
 
+    }
+    public void LecturaDOM(String folder, String fileName) {
+
+        DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+        try {
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document document= builder.parse(new File("encarrec.xml"));
+            Element arrel = document.getDocumentElement();
+            System.out.printf ("element arrel : %s %n", arrel.getNodeName());
+            NodeList encarrecs = document.getElementsByTagName("encarrec");
+            System.out.printf ("Nodes a recòrrer: %d %n", encarrecs.getLength());
+
+
+
+        
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+       
     }
 
     public static void FormatEncarrec(Encarrec encarrec) {
