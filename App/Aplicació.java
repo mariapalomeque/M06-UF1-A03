@@ -206,7 +206,7 @@ public class Aplicació {
 
     public static void MostrarEncarrec(BufferedReader reader) throws IOException {
 
-        String folder = "C:\\Users\\accesadades\\";
+        String folder = "C:\\Users\\pauon\\Desktop\\m06\\M06-UF1-A03\\";
 
         System.out.println("Quin tipus de fitxer voleu obrir?");
         System.out.println("1. Fitxer .csv");
@@ -249,7 +249,7 @@ public class Aplicació {
 
     public static void ModificarEncarrec(BufferedReader reader) throws IOException {
 
-        String folder = "C:\\Users\\accesadades\\";
+        String folder = "C:\\Users\\pauon\\Desktop\\m06\\M06-UF1-A03\\";
         String opcio = ""; 
         String nouTel = "";
         String novaData = "";

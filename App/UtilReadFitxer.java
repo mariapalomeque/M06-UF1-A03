@@ -259,19 +259,49 @@ public class UtilReadFitxer {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            Document document= builder.parse(new File("encarrec.xml"));
+            Document document = builder.parse(new File(folder + fileName + ".xml"));
             Element arrel = document.getDocumentElement();
             System.out.printf ("element arrel : %s %n", arrel.getNodeName());
-            NodeList encarrecs = document.getElementsByTagName("encarrec");
-            System.out.printf ("Nodes a recòrrer: %d %n", encarrecs.getLength());
+            NodeList NodeEncarrecs = document.getElementsByTagName("encarrec");
+            System.out.printf ("Nodes a recòrrer: %d %n", NodeEncarrecs.getLength());
+
+            for (int i = 0; i < NodeEncarrecs.getLength(); i++) {
+                Element encElement = (Element) NodeEncarrecs.item(i);
 
 
+                    int id = Integer.parseInt(encElement.getAttribute("id"));
 
-        
+                    //int id = Integer.parseInt(encElement.getElementsByTagName("id").item(0).getTextContent());
+                     String nomCli = encElement.getElementsByTagName("nomCli").item(0).getTextContent();
+                    String telCli = encElement.getElementsByTagName("telCli").item(0).getTextContent();
+                    String dataEncarrec = encElement.getElementsByTagName("dataEncarrec").item(0).getTextContent();
+                    float preuTotal = Float.parseFloat(encElement.getElementsByTagName("preuTotal").item(0).getTextContent());
+
+                    ArrayList<Article> articles = new ArrayList<>();
+                    NodeList NodeArticles = encElement.getElementsByTagName("article");
+
+                    for (int j = 0; j < NodeArticles.getLength(); j++) {
+                    Element artElement = (Element) NodeArticles.item(j);
+
+                    String nomArticle = artElement.getElementsByTagName("nomArticle").item(0).getTextContent();
+                    float quantitat = Float.parseFloat(artElement.getElementsByTagName("quantitat").item(0).getTextContent());
+                    String tipusUnitat = artElement.getElementsByTagName("tipusUnitat").item(0).getTextContent();
+                    float preuUnitat = Float.parseFloat(artElement.getElementsByTagName("preuUnitat").item(0).getTextContent());
+
+                    Article article = new Article(nomArticle, quantitat, tipusUnitat, preuUnitat);
+                    articles.add(article);
+                     }
+
+            
+                Encarrec encarrec = new Encarrec(id, nomCli, telCli, dataEncarrec, articles, preuTotal);
+                FormatEncarrec(encarrec);
+                }
+
+            
         } catch (Exception e) {
             e.printStackTrace();
+        
         }
-       
     }
 
     public static void FormatEncarrec(Encarrec encarrec) {

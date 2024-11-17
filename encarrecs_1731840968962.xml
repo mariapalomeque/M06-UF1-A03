@@ -14,4 +14,18 @@
             </article>
         </articles>
     </encarrec>
+    <encarrec id="2">
+        <nomCli>pepon</nomCli>
+        <telCli>777777777</telCli>
+        <dataEncarrec>22/12/2001</dataEncarrec>
+        <preuTotal>12.0</preuTotal>
+        <articles>
+            <article>
+                <nomArticle>suc</nomArticle>
+                <quantitat>6.0</quantitat>
+                <tipusUnitat>l</tipusUnitat>
+                <preuUnitat>2.0</preuUnitat>
+            </article>
+        </articles>
+    </encarrec>
 </encarrecs>
